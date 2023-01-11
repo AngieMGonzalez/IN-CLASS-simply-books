@@ -14,6 +14,8 @@ function Home() {
   const { user } = useAuth();
 
   // TODO: create a function that makes the API call to get all the books
+  // this is where we get the book object prop
+  // parent prop and the child lives in BookCard.js
   const getAllTheBooks = () => {
     getBooks(user.uid).then(setBooks);
   };

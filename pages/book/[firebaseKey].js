@@ -3,12 +3,15 @@ import React, { useEffect, useState } from 'react';
 import { useRouter } from 'next/router';
 import { viewBookDetails } from '../../api/mergedData';
 
+// we dont pass any props to ViewBook
 export default function ViewBook() {
   const [bookDetails, setBookDetails] = useState({});
   const router = useRouter();
+  console.warn('router object', router);
 
-  // TODO: grab firebaseKey from url
+  // TODO: grab firebaseKey from url query is a key within the router obj
   const { firebaseKey } = router.query;
+  // we are deconstructing, we are saying get the firebaseKey w/in the query
 
   // TODO: make call to API layer to get the data
   useEffect(() => {

@@ -24,7 +24,7 @@ function BookCard({ bookObj, onUpdate }) {
         <Link href={`/book/${bookObj.firebaseKey}`} passHref>
           <Button variant="primary" className="m-2">VIEW</Button>
         </Link>
-        {/* DYNAMIC LINK TO EDIT THE BOOK DETAILS  */}
+        {/* DYNAMIC LINK TO EDIT THE BOOK DETAILS this route knows wut compnt to render */}
         <Link href={`/book/edit/${bookObj.firebaseKey}`} passHref>
           <Button variant="info">EDIT</Button>
         </Link>
@@ -35,6 +35,7 @@ function BookCard({ bookObj, onUpdate }) {
     </Card>
   );
 }
+// we put line 28 into a string im setting the link to a string and putting the firebaseKey in that
 
 BookCard.propTypes = {
   bookObj: PropTypes.shape({

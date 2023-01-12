@@ -9,7 +9,7 @@ export default function ViewBook() {
   const router = useRouter();
   console.warn('router object', router);
 
-  // TODO: grab firebaseKey from url query is a key within the router obj
+  // TODO: grab firebaseKey from url query is a key within the router obj - {firebaseKey} is taco
   const { firebaseKey } = router.query;
   // we are deconstructing, we are saying get the firebaseKey w/in the query
 

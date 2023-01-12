@@ -45,6 +45,8 @@ const AuthProvider = (props) => {
 };
 const AuthConsumer = AuthContext.Consumer;
 
+// useAuth is a custom hook
+// Use the following code anywhere inside your components to get access to the user details
 const useAuth = () => {
   const context = useContext(AuthContext);
 

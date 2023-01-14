@@ -6,6 +6,9 @@ import { signOut } from '../utils/auth';
 
 export default function UserProfile() {
   const { user } = useAuth();
+  // search parse date to watever u want it to be
+  const time = user.metadata.lastSignInTime;
+  console.warn('user', time.toISOString());
 
   return (
     <div>

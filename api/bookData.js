@@ -15,7 +15,7 @@ const getBooks = (uid) => new Promise((resolve, reject) => {
     })
     .catch((error) => reject(error));
 });
-
+// fetch is pretty new; axios.get is old
 // const getBooks = (uid) => new Promise((resolve, reject) => {
 //   fetch(`${endpoint}/books.json?orderBy="uid"&equalTo="${uid}"`, {
 //     method: 'GET',

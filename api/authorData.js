@@ -132,8 +132,8 @@ const updateAuthor = (payload) => new Promise((resolve, reject) => {
 // });
 
 // TODO: GET A SINGLE AUTHOR'S BOOKS - get(READ) author books
-const getAuthorBooks = (firebaseKey) => new Promise((resolve, reject) => {
-  axios.get(`${dbUrl}/books.json?orderBy="author_id"&equalTo="${firebaseKey}"`, {
+const getAuthorBooks = (authorFirebaseKey) => new Promise((resolve, reject) => {
+  axios.get(`${dbUrl}/books.json?orderBy="author_id"&equalTo="${authorFirebaseKey}"`, {
     method: 'GET',
     headers: {
       'Content-Type': 'application/json',

@@ -5,22 +5,20 @@ import FloatingLabel from 'react-bootstrap/FloatingLabel';
 import Form from 'react-bootstrap/Form';
 import { Button } from 'react-bootstrap';
 import { useAuth } from '../../utils/context/authContext';
-import { getAuthors } from '../../api/authorData';
-import { createBook, updateBook } from '../../api/bookData';
+import { createAuthor, updateAuthor } from '../../api/authorData';
 
 // these have to match the name "" in the form input
 const initialState = {
-  description: '',
+  email: '',
+  first_name: '',
+  last_name: '',
   image: '',
-  price: '',
-  sale: false,
-  title: '',
+  favorite: false,
 };
 
-function BookForm({ obj }) {
+function AuthorForm({ obj }) {
   // handle form first, formInput is for everything on the form
   const [formInput, setFormInput] = useState(initialState); // initial stat is an object so you dont need curly brackets around it
-  const [authors, setAuthors] = useState([]);
   // router w/ next.js
   const router = useRouter();
   const { user } = useAuth();
@@ -37,7 +35,6 @@ function BookForm({ obj }) {
   // use state is only for state management of data
   // traking and mging the state of data
   useEffect(() => {
-    getAuthors(user.uid).then(setAuthors);
     // because we are not editing the object in the form
     // this is a form for updateing and creating a new book
     // we prepoulate our form with value={formInput.title} which is the state were tracking
@@ -46,7 +43,7 @@ function BookForm({ obj }) {
     // if i get an obj that has a firebasekey, fill in that form with the obj's info
     // this is for UPDATE
     if (obj.firebaseKey) setFormInput(obj);
-  }, [obj, user]);
+  }, [obj]);
   // dependcy array, whatever u put in in the depencdy were telling it that it needs to run useEffect again
   // we need to run the useEffect again when the user changes
   // if its empty [] were telling it to run always, just run once on load
@@ -70,11 +67,11 @@ function BookForm({ obj }) {
   const handleSubmit = (e) => {
     e.preventDefault();
     if (obj.firebaseKey) {
-      updateBook(formInput)
-        .then(() => router.push(`/book/${obj.firebaseKey}`));
+      updateAuthor(formInput)
+        .then(() => router.push(`/author/${obj.firebaseKey}`));
     } else {
       const payload = { ...formInput, uid: user.uid };
-      createBook(payload).then(() => {
+      createAuthor(payload).then(() => {
         router.push('/');
       });
     }
@@ -86,22 +83,22 @@ function BookForm({ obj }) {
   // https://react-bootstrap.github.io/forms/overview/
   return (
     <Form onSubmit={handleSubmit}>
-      <h2 className="text-white mt-5">{obj.firebaseKey ? 'Update' : 'Create'} Book</h2>
+      <h2 className="text-white mt-5">{obj.firebaseKey ? 'Update' : 'Create'} Author</h2>
 
-      {/* TITLE INPUT Form.Control is an input tag */}
-      <FloatingLabel controlId="floatingInput1" label="Book Title" className="mb-3">
+      {/* EMAIL INPUT Form.Control is an input tag */}
+      <FloatingLabel label="Author Email" className="mb-3">
         <Form.Control
-          type="text"
-          placeholder="Enter a title"
+          type="email"
+          placeholder="Enter an email"
           name="title"
-          value={formInput.title}
+          value={formInput.email}
           onChange={handleChange}
           required
         />
       </FloatingLabel>
 
       {/* IMAGE INPUT  */}
-      <FloatingLabel controlId="floatingInput2" label="Book Image" className="mb-3">
+      <FloatingLabel label="Book Image" className="mb-3">
         <Form.Control
           type="url"
           placeholder="Enter an image url"
@@ -112,66 +109,38 @@ function BookForm({ obj }) {
         />
       </FloatingLabel>
 
-      {/* PRICE INPUT  */}
-      <FloatingLabel controlId="floatingInput3" label="Book Price" className="mb-3">
+      {/* FIRST_NAME INPUT  */}
+      <FloatingLabel label="Author First Name" className="mb-3">
         <Form.Control
           type="text"
-          placeholder="Enter a price"
-          name="price"
+          placeholder="First Name"
+          name="first_name"
           value={formInput.price}
           onChange={handleChange}
           required
         />
       </FloatingLabel>
 
-      {/* AUTHOR SELECT
-      value={formInput.author_id}
-      */}
-      <FloatingLabel controlId="floatingSelect" label="Author">
-        <Form.Select
-          placeholder="Pick an Author"
-          aria-label="Author"
-          name="author_id"
-          onChange={handleChange}
-          className="mb-3"
-          value={formInput.author_id} // FIXME: change obj.author_id to formInput
-          required
-        >
-          <option value="">Select an Author</option>
-          {
-            authors.map((author) => (
-              <option
-                key={author.firebaseKey}
-                value={author.firebaseKey}
-              >
-                {author.first_name} {author.last_name}
-              </option>
-            ))
-          }
-        </Form.Select>
-      </FloatingLabel>
-
-      {/* DESCRIPTION TEXTAREA  */}
-      <FloatingLabel controlId="floatingTextarea" label="Book Description" className="mb-3">
+      {/* LAST_NAME INPUT  */}
+      <FloatingLabel label="Book Description" className="mb-3">
         <Form.Control
-          as="textarea"
-          placeholder="Description"
-          style={{ height: '100px' }}
-          name="description"
+          type="text"
+          placeholder="Last Name"
+          name="last_name"
           value={formInput.description}
           onChange={handleChange}
           required
         />
       </FloatingLabel>
 
-      {/* SALE: A WAY TO HANDLE UPDATES FOR TOGGLES, RADIOS, ETC  */}
+      {/* FAVORITE: A WAY TO HANDLE UPDATES FOR TOGGLES, RADIOS, ETC  */}
       <Form.Check
         className="text-white mb-3"
         type="switch"
-        id="sale"
-        name="sale"
-        label="On Sale?"
-        checked={formInput.sale}
+        id="favorite"
+        name="favorite"
+        label="Favorite?"
+        checked={formInput.favorite}
         onChange={(e) => {
           setFormInput((prevState) => ({
             ...prevState,
@@ -181,25 +150,24 @@ function BookForm({ obj }) {
       />
 
       {/* SUBMIT BUTTON  */}
-      <Button variant="primary" type="submit">{obj.firebaseKey ? 'Update' : 'Create'} Book</Button>
+      <Button variant="primary" type="submit">{obj.firebaseKey ? 'Update' : 'Create'} Author</Button>
     </Form>
   );
 }
 
-BookForm.propTypes = {
+AuthorForm.propTypes = {
   obj: PropTypes.shape({
-    description: PropTypes.string,
+    email: PropTypes.string,
+    first_name: PropTypes.string,
+    last_name: PropTypes.string,
     image: PropTypes.string,
-    price: PropTypes.string,
-    sale: PropTypes.bool,
-    title: PropTypes.string,
-    author_id: PropTypes.string,
+    favorite: PropTypes.bool,
     firebaseKey: PropTypes.string,
   }),
 };
 
-BookForm.defaultProps = {
+AuthorForm.defaultProps = {
   obj: initialState,
 };
 
-export default BookForm;
+export default AuthorForm;

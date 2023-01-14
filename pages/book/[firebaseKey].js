@@ -3,7 +3,7 @@ import React, { useEffect, useState } from 'react';
 import { useRouter } from 'next/router';
 import { viewBookDetails } from '../../api/mergedData';
 
-// we dont pass any props to ViewBook
+// we dont pass any props to ViewBook. this is the ViewBook details
 export default function ViewBook() {
   const [bookDetails, setBookDetails] = useState({});
   const router = useRouter();

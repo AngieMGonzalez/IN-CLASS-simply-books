@@ -3,9 +3,15 @@ import PropTypes from 'prop-types';
 import Button from 'react-bootstrap/Button';
 import Card from 'react-bootstrap/Card';
 import Link from 'next/link';
+import { deleteBook } from '../api/bookData';
 
-export default function AuthorCard({ authorObj }) {
+function AuthorCard({ authorObj }) {
   console.warn('authorObj', authorObj);
+  const deleteThisAuthor = () => {
+    if (window.confirm(`Delete ${authorObj.first_name} ${authorObj.last_name}?`)) {
+      deleteBook(authorObj.firebaseKey).then(() => console.warn('why doesnt onUpdate work?'));
+    }
+  };
   return (
     <div>
       <Card style={{ width: '18rem', margin: '10px' }}>
@@ -22,9 +28,9 @@ export default function AuthorCard({ authorObj }) {
           <Link href={`/author/edit/${authorObj.firebaseKey}`} passHref>
             <Button variant="info">EDIT</Button>
           </Link>
-          {/* <Button variant="danger" onClick={deleteThisAuthor} className="m-2">
+          <Button variant="danger" onClick={deleteThisAuthor} className="m-2">
             DELETE
-          </Button> */}
+          </Button>
         </Card.Body>
       </Card>
     </div>
@@ -42,3 +48,5 @@ AuthorCard.propTypes = {
     favorite: PropTypes.bool,
   }).isRequired,
 };
+
+export default AuthorCard;

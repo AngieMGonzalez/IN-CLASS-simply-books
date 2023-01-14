@@ -68,11 +68,11 @@ function AuthorForm({ obj }) {
     e.preventDefault();
     if (obj.firebaseKey) {
       updateAuthor(formInput)
-        .then(() => router.push(`/author/${obj.firebaseKey}`));
+        .then(() => router.push('/authors'));
     } else {
       const payload = { ...formInput, uid: user.uid };
       createAuthor(payload).then(() => {
-        router.push('/');
+        router.push('/authors');
       });
     }
   };
@@ -90,7 +90,7 @@ function AuthorForm({ obj }) {
         <Form.Control
           type="email"
           placeholder="Enter an email"
-          name="title"
+          name="email"
           value={formInput.email}
           onChange={handleChange}
           required
@@ -98,7 +98,7 @@ function AuthorForm({ obj }) {
       </FloatingLabel>
 
       {/* IMAGE INPUT  */}
-      <FloatingLabel label="Book Image" className="mb-3">
+      <FloatingLabel label="Author Image" className="mb-3">
         <Form.Control
           type="url"
           placeholder="Enter an image url"
@@ -110,24 +110,24 @@ function AuthorForm({ obj }) {
       </FloatingLabel>
 
       {/* FIRST_NAME INPUT  */}
-      <FloatingLabel label="Author First Name" className="mb-3">
+      <FloatingLabel label="First Name" className="mb-3">
         <Form.Control
           type="text"
           placeholder="First Name"
           name="first_name"
-          value={formInput.price}
+          value={formInput.first_name}
           onChange={handleChange}
           required
         />
       </FloatingLabel>
 
       {/* LAST_NAME INPUT  */}
-      <FloatingLabel label="Book Description" className="mb-3">
+      <FloatingLabel label="Last Name" className="mb-3">
         <Form.Control
           type="text"
           placeholder="Last Name"
           name="last_name"
-          value={formInput.description}
+          value={formInput.last_name}
           onChange={handleChange}
           required
         />
@@ -144,13 +144,13 @@ function AuthorForm({ obj }) {
         onChange={(e) => {
           setFormInput((prevState) => ({
             ...prevState,
-            sale: e.target.checked,
+            favorite: e.target.checked,
           }));
         }}
       />
 
       {/* SUBMIT BUTTON  */}
-      <Button variant="primary" type="submit">{obj.firebaseKey ? 'Update' : 'Create'} Author</Button>
+      <Button type="submit">{obj.firebaseKey ? 'Update' : 'Create'} Author</Button>
     </Form>
   );
 }

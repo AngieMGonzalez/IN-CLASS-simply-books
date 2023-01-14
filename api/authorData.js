@@ -35,17 +35,13 @@ const getAuthors = (uid) => new Promise((resolve, reject) => {
 // });
 
 // FIXME: CREATE AUTHOR
-const createAuthor = (payload) => new Promise((resolve, reject) => {
-  axios.get(`${dbUrl}/authors.json`, {
-    method: 'POST',
-    headers: {
-      'Content-Type': 'application/json',
-    },
-    body: JSON.stringify(payload),
-  })
-    .then((response) => response.json())
-    .then((data) => resolve(data))
-    .catch(reject);
+const createAuthor = (authorObj) => new Promise((resolve, reject) => {
+  axios.post(`${dbUrl}/authors.json`, authorObj)
+    .then((response) => {
+      const payload = { firebaseKey: response.data.name };
+      axios.patch(`${dbUrl}/authors/${response.data.name}.json`, payload)
+        .then(resolve);
+    }).catch(reject);
 });
 
 // const createAuthor = (payload) => new Promise((resolve, reject) => {
@@ -105,15 +101,8 @@ const deleteSingleAuthor = (firebaseKey) => new Promise((resolve, reject) => {
 // });
 
 // FIXME: UPDATE AUTHOR
-const updateAuthor = (payload) => new Promise((resolve, reject) => {
-  axios.getUri(`${dbUrl}/authors/${payload.firebaseKey}.json`, {
-    method: 'PATCH',
-    headers: {
-      'Content-Type': 'application/json',
-    },
-    body: JSON.stringify(payload),
-  })
-    .then((response) => response.json())
+const updateAuthor = (authorObj) => new Promise((resolve, reject) => {
+  axios.patch(`${dbUrl}/authors/${authorObj.firebaseKey}.json`, authorObj)
     .then(resolve)
     .catch(reject);
 });
@@ -133,7 +122,7 @@ const updateAuthor = (payload) => new Promise((resolve, reject) => {
 
 // TODO: GET A SINGLE AUTHOR'S BOOKS - get(READ) author books
 const getAuthorBooks = (authorFirebaseKey) => new Promise((resolve, reject) => {
-  axios.get(`${dbUrl}/books.json?orderBy="author_id"&equalTo="${authorFirebaseKey}"`, {
+  fetch(`${dbUrl}/books.json?orderBy="author_id"&equalTo="${authorFirebaseKey}"`, {
     method: 'GET',
     headers: {
       'Content-Type': 'application/json',

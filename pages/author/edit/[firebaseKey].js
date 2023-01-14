@@ -1,8 +1,10 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { useRouter } from 'next/router';
+import { getSingleAuthor } from '../../../api/authorData';
+import AuthorForm from '../../../components/forms/AuthorForm';
 
 export default function EditAuthor() {
-  // const [editAuthor, setEditAuthor] = useState({});
+  const [editItem, setEditItem] = useState({});
   // router is a hook that grabs an object
   const router = useRouter();
   // TODO: grab the firebasekey
@@ -10,10 +12,12 @@ export default function EditAuthor() {
   // i neamed this file [firebaseKey].js so that's why it's called that
 
   // TODO: make a call to the API to get the book data
-  // useEffect(() => {
-  //   getSingleAuthor(firebaseKey).then(setEditAuthor);
-  // }, [firebaseKey]);
+  useEffect(() => {
+    getSingleAuthor(firebaseKey).then(setEditItem);
+  }, [firebaseKey]);
 
   // TODO: pass object to form
-  return (<div> Edit Author {firebaseKey} </div>);
+  return (
+    <div> <AuthorForm obj={editItem} /> </div>
+  );
 }

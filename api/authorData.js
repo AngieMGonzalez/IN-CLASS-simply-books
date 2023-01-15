@@ -127,14 +127,20 @@ const updateAuthor = (authorObj) => new Promise((resolve, reject) => {
 //     .catch(reject);
 // });
 
+// const getAuthorBooks = (authorFirebaseKey) => new Promise((resolve, reject) => {
+//   axios.get(`${dbUrl}/books.json?orderBy="author_id"&equalTo="${authorFirebaseKey}"`, {
+//     headers: {
+//       'Content-Type': 'application/json',
+//     },
+//   })
+//     .then((response) => resolve(Object.values(response.data)))
+//     .catch(reject);
+// });
+
 const getAuthorBooks = (authorFirebaseKey) => new Promise((resolve, reject) => {
-  axios.get(`${dbUrl}/books.json?orderBy="author_id"&equalTo="${authorFirebaseKey}"`, {
-    headers: {
-      'Content-Type': 'application/json',
-    },
-  })
-    .then((response) => resolve(Object.values(response.data)))
-    .catch(reject);
+  axios.get(`${dbUrl}/books.json?orderBy="author_id"&equalTo="${authorFirebaseKey}"`)
+    .then((response) => resolve(Object.values(response.data) || []))
+    .catch((error) => reject(error));
 });
 
 // const getAuthorBooks = (firebaseKey) => new Promise((resolve, reject) => {

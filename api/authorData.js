@@ -77,15 +77,9 @@ const getSingleAuthor = (firebaseKey) => new Promise((resolve, reject) => {
 
 // FIXME: DELETE AUTHOR
 const deleteSingleAuthor = (firebaseKey) => new Promise((resolve, reject) => {
-  axios.get(`${dbUrl}/authors/${firebaseKey}.json`, {
-    method: 'DELETE',
-    headers: {
-      'Content-Type': 'application/json',
-    },
-  })
-    .then((response) => response.json())
-    .then((data) => resolve(data))
-    .catch(reject);
+  axios.delete(`${dbUrl}/authors/${firebaseKey}.json`)
+    .then(() => resolve('deleted'))
+    .catch((error) => reject(error));
 });
 
 // const deleteSingleAuthor = (firebaseKey) => new Promise((resolve, reject) => {
@@ -121,15 +115,25 @@ const updateAuthor = (authorObj) => new Promise((resolve, reject) => {
 // });
 
 // TODO: GET A SINGLE AUTHOR'S BOOKS - get(READ) author books
+// const getAuthorBooks = (authorFirebaseKey) => new Promise((resolve, reject) => {
+//   fetch(`${dbUrl}/books.json?orderBy="author_id"&equalTo="${authorFirebaseKey}"`, {
+//     method: 'GET',
+//     headers: {
+//       'Content-Type': 'application/json',
+//     },
+//   })
+//     .then((response) => response.json())
+//     .then((data) => resolve(Object.values(data)))
+//     .catch(reject);
+// });
+
 const getAuthorBooks = (authorFirebaseKey) => new Promise((resolve, reject) => {
-  fetch(`${dbUrl}/books.json?orderBy="author_id"&equalTo="${authorFirebaseKey}"`, {
-    method: 'GET',
+  axios.get(`${dbUrl}/books.json?orderBy="author_id"&equalTo="${authorFirebaseKey}"`, {
     headers: {
       'Content-Type': 'application/json',
     },
   })
-    .then((response) => response.json())
-    .then((data) => resolve(Object.values(data)))
+    .then((response) => resolve(Object.values(response.data)))
     .catch(reject);
 });
 

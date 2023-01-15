@@ -3,13 +3,15 @@ import PropTypes from 'prop-types';
 import Button from 'react-bootstrap/Button';
 import Card from 'react-bootstrap/Card';
 import Link from 'next/link';
-import { deleteBook } from '../api/bookData';
+import { deleteSingleAuthor } from '../api/authorData';
 
-function AuthorCard({ authorObj }) {
+function AuthorCard({ authorObj, onUpdate }) {
   console.warn('authorObj', authorObj);
   const deleteThisAuthor = () => {
     if (window.confirm(`Delete ${authorObj.first_name} ${authorObj.last_name}?`)) {
-      deleteBook(authorObj.firebaseKey).then(() => console.warn('why doesnt onUpdate work?'));
+      deleteSingleAuthor(authorObj.firebaseKey).then(() => onUpdate());
+      // deleteBook((book.author_id) if book.author_id === authorObj.firebaseKey)
+      // merged api call situation
     }
   };
   return (
@@ -47,6 +49,7 @@ AuthorCard.propTypes = {
     image: PropTypes.string,
     favorite: PropTypes.bool,
   }).isRequired,
+  onUpdate: PropTypes.func.isRequired,
 };
 
 export default AuthorCard;

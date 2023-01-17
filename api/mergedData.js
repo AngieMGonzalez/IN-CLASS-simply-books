@@ -38,7 +38,7 @@ const viewAuthorDetails = (authorFirebaseKey) => new Promise((resolve, reject) =
     }).catch((error) => reject(error));
 });
 
-// TODO: Get data for viewAuthor green button
+// Get data for viewAuthor green button
 // const getAuthorBooks = (firebaseKey) => new Promise((resolve, reject) => {
 //   getSingleAuthor(firebaseKey).then((authorObject) => {
 //     getBooksByAuthor(firebaseKey)
@@ -67,7 +67,7 @@ const deleteAuthorBooks = (authorId) => new Promise((resolve, reject) => {
 });
 
 // const deleteAuthorBooksRelationship = (firebaseKey) => new Promise((resolve, reject) => {
-//   getBooksByAuthor(firebaseKey).then((booksArray) => {
+//   getAuthorBooks(firebaseKey).then((booksArray) => {
 //     const deleteBookPromises = booksArray.map((book) => deleteBook(book.firebaseKey));
 
 //     Promise.all(deleteBookPromises).then(() => {

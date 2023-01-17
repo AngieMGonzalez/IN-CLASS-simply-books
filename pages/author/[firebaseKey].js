@@ -44,8 +44,8 @@ export default function ViewAuthor() {
       <hr />
       <h3>These are the books {authorDetails.first_name} {authorDetails.last_name} wrote:</h3>
       <div className="d-flex flex-column">
-        {authorDetails.books?.map((book) => (
-          <BookCard key={book.firebaseKey} bookObj={book} onUpdate={forOnUpdateOfAuthors} />
+        {authorDetails.books?.map((bookObject) => (
+          <BookCard key={bookObject.firebaseKey} bookObj={bookObject} onUpdate={forOnUpdateOfAuthors} />
         ))}
       </div>
     </>

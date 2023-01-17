@@ -75,6 +75,7 @@ const createBook = (bookObj) => new Promise((resolve, reject) => {
   axios.post(`${dbUrl}/books.json`, bookObj)
     .then((response) => {
       const payload = { firebaseKey: response.data.name };
+      console.warn('createBook payload', payload);
       axios.patch(`${dbUrl}/books/${response.data.name}.json`, payload)
         .then(resolve);
     }).catch(reject);

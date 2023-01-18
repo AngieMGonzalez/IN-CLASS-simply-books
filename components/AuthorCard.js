@@ -10,8 +10,6 @@ function AuthorCard({ authorObj, onUpdate }) {
   const deleteThisAuthor = () => {
     if (window.confirm(`Delete ${authorObj.first_name} ${authorObj.last_name}?`)) {
       deleteAuthorBooks(authorObj.firebaseKey).then(() => onUpdate());
-      // deleteBook((book.author_id) if book.author_id === authorObj.firebaseKey)
-      // merged api call situation
     }
   };
   return (

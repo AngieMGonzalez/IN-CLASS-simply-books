@@ -36,7 +36,7 @@ function AuthorForm({ obj }) {
   // traking and mging the state of data
   useEffect(() => {
     // because we are not editing the object in the form
-    // this is a form for updateing and creating a new book
+    // this is a form for updateing and creating a new author
     // we prepoulate our form with value={formInput.title} which is the state were tracking
     // but when we update were passing obj there, if
     // we will setFormInput to obj

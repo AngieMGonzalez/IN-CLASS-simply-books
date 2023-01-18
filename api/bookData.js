@@ -126,20 +126,20 @@ const updateBook = (bookObj) => new Promise((resolve, reject) => {
 // });
 
 // // TODO: FILTER BOOKS ON SALE
-// const booksOnSale = (uid) => new Promise((resolve, reject) => {
-//   fetch(`${endpoint}/books.json?orderBy="uid"&equalTo="${uid}"`, {
-//     method: 'GET',
-//     headers: {
-//       'Content-Type': 'application/json',
-//     },
-//   })
-//     .then((response) => response.json())
-//     .then((data) => {
-//       const onSale = Object.values(data).filter((item) => item.sale);
-//       resolve(onSale);
-//     })
-//     .catch(reject);
-// });
+const booksOnSale = (uid) => new Promise((resolve, reject) => {
+  fetch(`${dbUrl}/books.json?orderBy="uid"&equalTo="${uid}"`, {
+    method: 'GET',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+  })
+    .then((response) => response.json())
+    .then((data) => {
+      const onSale = Object.values(data).filter((item) => item.sale);
+      resolve(onSale);
+    })
+    .catch(reject);
+});
 
 // // TODO: STRETCH...SEARCH BOOKS
 
@@ -149,4 +149,5 @@ export {
   deleteBook,
   getSingleBook,
   updateBook,
+  booksOnSale,
 };

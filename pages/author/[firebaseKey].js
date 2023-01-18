@@ -14,7 +14,6 @@ export default function ViewAuthor() {
   const forOnUpdateOfAuthors = () => {
     // eslint-disable-next-line no-use-before-define
     viewAuthorDetails(firebaseKey).then(setAuthorDetails);
-    console.warn('setAuthorDetails', setAuthorDetails);
   };
 
   // TODO: grab firebaseKey from url query is a key within the router obj - {firebaseKey} is taco

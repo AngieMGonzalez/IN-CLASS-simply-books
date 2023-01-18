@@ -36,7 +36,7 @@ function AuthorForm({ obj }) {
   // traking and mging the state of data
   useEffect(() => {
     // because we are not editing the object in the form
-    // this is a form for updateing and creating a new author
+    // this is a form for updating and creating a new author!
     // we prepoulate our form with value={formInput.title} which is the state were tracking
     // but when we update were passing obj there, if
     // we will setFormInput to obj
@@ -67,6 +67,7 @@ function AuthorForm({ obj }) {
   const handleSubmit = (e) => {
     e.preventDefault();
     if (obj.firebaseKey) {
+      // formINput is the payload for update Author
       updateAuthor(formInput)
         .then(() => router.push('/authors'));
     } else {
@@ -76,6 +77,7 @@ function AuthorForm({ obj }) {
       });
     }
   };
+  console.warn('AuthorForm obj.firebaseKey', obj.firebaseKey);
   // we push router.push - the root is '/' index.js
 
   // we call bootstrap with Form and FloatingLabel and Form.Control

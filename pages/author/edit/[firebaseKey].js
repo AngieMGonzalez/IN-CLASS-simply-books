@@ -18,6 +18,6 @@ export default function EditAuthor() {
 
   // TODO: pass object to form
   return (
-    <div> <AuthorForm obj={editItem} /> </div>
+    <div> <AuthorForm obj={editItem} key={firebaseKey} /> </div>
   );
 }

@@ -69,7 +69,7 @@ function AuthorForm({ obj }) {
     if (obj.firebaseKey) {
       // formINput is the payload for update Author
       updateAuthor(formInput)
-        .then(() => router.push('/authors'));
+        .then(() => router.push(`/author/${obj.firebaseKey}`));
     } else {
       const payload = { ...formInput, uid: user.uid };
       createAuthor(payload).then(() => {
